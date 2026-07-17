@@ -529,6 +529,26 @@ window.addEventListener('click', function(event) {
         document.body.style.overflow = '';
     }
 });
+    <script>
+        // Scroll-to-Top Button Steuerung
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            // Wenn man mehr als 300 Pixel nach unten gescrollt hat, zeige den Pfeil
+            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                scrollBtn.classList.add('show');
+            } else {
+                scrollBtn.classList.remove('show');
+            }
+        });
+
+        // Funktion beim Klick auf den Pfeil
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </script>
 <div id="method-modal" class="modal-overlay">
         <div class="modal-content">

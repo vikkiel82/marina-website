@@ -1274,3 +1274,62 @@ details[open] {
     .modal-price-line { flex-direction: row; justify-content: space-between; }
     .modal-footer-card .btn-primary { width: auto; }
 }
+/* ==========================================================================
+   SCROLL-TO-TOP BUTTON (Pfeil nach oben)
+   ========================================================================== */
+/* Sorgt dafür, dass die Seite sanft nach oben gleitet, statt hart zu springen */
+html {
+    scroll-behavior: smooth;
+}
+
+#scrollTopBtn {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 9999;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: 1px solid var(--accent-gold);
+    background-color: var(--dark-green);
+    color: #ffffff;
+    cursor: pointer;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+    transition: all 0.3s ease;
+    
+    /* Anfangs ist der Button unsichtbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Diese Klasse wird per JavaScript aktiviert, sobald man nach unten scrollt */
+#scrollTopBtn.show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+}
+
+/* Effekt beim Rüberfahren mit der Maus */
+#scrollTopBtn:hover {
+    background-color: var(--accent-gold);
+    color: #ffffff;
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+/* Auf dem Smartphone etwas kleiner und näher am Rand */
+@media (max-width: 768px) {
+    #scrollTopBtn {
+        bottom: 20px;
+        right: 20px;
+        width: 40px;
+        height: 40px;
+        font-size: 1.3rem;
+    }
+}

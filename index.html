@@ -460,96 +460,7 @@
             </div>
         </div>
     </footer>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
-<script>
-  const swiper = new Swiper('.reviews-swiper', {
-    slidesPerView: 1,         /* На мобильных по умолчанию 1 отзыв */
-    spaceBetween: 20,         /* Расстояние между слайдами */
-    loop: false,              /* Отключаем бесконечный круг, чтобы листалось последовательно */
-    grabCursor: true,         /* Иконка "руки" при наведении для удобства перетаскивания */
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev',
-    },
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    breakpoints: {
-      768: {
-        slidesPerView: 2,     /* На планшетах — 2 слайда */
-        spaceBetween: 30,
-      },
-      1024: {
-        slidesPerView: 3,     /* На компьютерах — ровно 3 первых отзыва на экране */
-        spaceBetween: 30,
-      }
-    }
-  });
-  // Функция открытия окна
-function openModal() {
-    const modal = document.getElementById('method-modal');
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Отключаем прокрутку фонового сайта при чтении
-}
-
-// Функция закрытия окна
-function closeModal() {
-    const modal = document.getElementById('method-modal');
-    modal.classList.remove('active');
-    document.body.style.overflow = ''; // Возвращаем прокрутку сайту
-}
-
-// Закрытие кликом на темную вуаль вокруг окна
-window.onclick = function(event) {
-    const modal = document.getElementById('method-modal');
-    if (event.target == modal) {
-        closeModal();
-    }
-}
-// Открытие юридического окна по ID
-function openLegalModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Блокируем скролл фона
-}
-
-// Закрытие юридического окна по ID
-function closeLegalModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove('active');
-    document.body.style.overflow = ''; // Включаем скролл фона
-}
-
-// Закрытие при клике на темный фон вокруг любого окна
-window.addEventListener('click', function(event) {
-    if (event.target.classList.contains('modal-overlay')) {
-        event.target.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-});    
-</script>
-<script>
-        // Scroll-to-Top Button Steuerung
-        window.addEventListener('scroll', function() {
-            const scrollBtn = document.getElementById('scrollTopBtn');
-            // Wenn man mehr als 300 Pixel nach unten gescrollt hat, zeige den Pfeil
-            if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-                scrollBtn.classList.add('show');
-            } else {
-                scrollBtn.classList.remove('show');
-            }
-        });
-
-        // Funktion beim Klick auf den Pfeil
-        function scrollToTop() {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
-            });
-        }
-</script>
 <div id="method-modal" class="modal-overlay">
         <div class="modal-content">
             <button class="modal-close" onclick="closeModal()">✦</button>
@@ -727,5 +638,90 @@ window.addEventListener('click', function(event) {
          SCROLL-TO-TOP BUTTON (Pfeil nach oben)
          ========================================================================== -->
     <button id="scrollTopBtn" title="Nach oben scrollen" onclick="scrollToTop()">↑</button>
+<!-- Подключение библиотеки Swiper (обязательно должно быть перед нашим скриптом!) -->
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <script>
+        // 1. ИНИЦИАЛИЗАЦИЯ СЛАЙДЕРА ОТЗЫВОВ (Swiper)
+        const reviewsSwiper = new Swiper('.reviews-swiper', {
+            slidesPerView: 1, // 1 слайд на смартфонах
+            spaceBetween: 20,
+            navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+            },
+            breakpoints: {
+                768: {
+                    slidesPerView: 2, // 2 слайда на планшетах
+                    spaceBetween: 20
+                },
+                1024: {
+                    slidesPerView: 3, // 3 аккуратных слайда на компьютерах
+                    spaceBetween: 25
+                }
+            }
+        });
+
+        // 2. УПРАВЛЕНИЕ МОДАЛЬНЫМ ОКНОМ "АЛХИМИЯ СОСТОЯНИЯ"
+        function openModal() {
+            const modal = document.getElementById('method-modal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('method-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // 3. УПРАВЛЕНИЕ ЮРИДИЧЕСКИМИ ОКНАМИ (Impressum, AGB, Datenschutz)
+        function openLegalModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+
+        function closeLegalModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        }
+
+        // Закрытие любого окна при клике на темный фон вокруг него
+        window.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal-overlay')) {
+                event.target.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+
+        // 4. КНОПКА "ПРОКРУТКА ВВЕРХ" (Scroll to Top)
+        window.addEventListener('scroll', function() {
+            const scrollBtn = document.getElementById('scrollTopBtn');
+            if (scrollBtn) {
+                if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+                    scrollBtn.classList.add('show');
+                } else {
+                    scrollBtn.classList.remove('show');
+                }
+            }
+        });
+
+        function scrollToTop() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 </html>
